@@ -61,15 +61,15 @@ export default function Home() {
 
       <div className="flex justify-center">
         <Link href="/cardNumberPad">
-          <div className="bg-purple-700 h-48 w-60	 text-center py-20 rounded-xl m-5">
-            <h1 className="text-3xl text-white">กรอกเลขบัตร</h1>
+          <div className="bg-purple-700 w-auto text-center p-20 rounded-xl m-5">
+            <h1 className="text-5xl text-white">กรอกเลขบัตร หรือเลข HN</h1>
           </div>
         </Link>
         {/* <div className="bg-purple-700 h-48 w-60	 text-center py-20 rounded-xl m-5">
           <h1 className="text-3xl text-white">แสกนใบนำทาง</h1>
         </div> */}
       </div>
-      <div className="flex mt-24 justify-between ">
+      <div className="flex mt-24 justify-between">
         <div className="text-center">
           <div>
             <Image src={cardImage} width={370} height={200} />

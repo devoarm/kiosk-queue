@@ -44,25 +44,25 @@ const SelectServicePoint = () => {
       //   setListServicePoint([{ name: "TB/ARV", servicePointId: 78 }]);
       //   break;
       case "Tuesday":
-        setListServicePoint([{ name: "ANC", servicePointId: 78 }]);
+        setListServicePoint([{ name: "คลินิกตรวจครรภ์", servicePointId: 78 }]);
         break;
       case "Wednesday":
         setListServicePoint([
           { name: "CAPD", servicePointId: 65 },
-          { name: "HT", servicePointId: 77 },
+          { name: "คลินิกความดัน", servicePointId: 77 },
         ]);
         break;
       case "Thursday":
         setListServicePoint([
-          { name: "ANC", servicePointId: 78 },
-          { name: "CKD", servicePointId: 62 },
-          { name: "Asthma/COPD", servicePointId: 75 },
-          { name: "Wafarin", servicePointId: 67 },
-          { name: "วัยทอง", servicePointId: 79 },
+          // { name: "ANC", servicePointId: 78 },
+          { name: "CKD-โรคไต", servicePointId: 62 },
+          { name: "โรคหอบหืด/ถุงลมโป่งพอง", servicePointId: 75 },
+          { name: "Wafarin-โรคหัวใจ", servicePointId: 67 },
+          // { name: "วัยทอง", servicePointId: 79 },
         ]);
         break;
       case "Friday":
-        setListServicePoint([{ name: "DM", servicePointId: 76 }]);
+        setListServicePoint([{ name: "คลินิกเบาหวาน", servicePointId: 76 }]);
         break;
     }
     console.log(listServicePoint);
@@ -105,7 +105,7 @@ const SelectServicePoint = () => {
 
     getPatientInfo();
     checkDate();
-  }, [apiUrl,token]);
+  }, [apiUrl, token]);
 
   return (
     <div className="h-screen bg-green-400">
@@ -115,11 +115,11 @@ const SelectServicePoint = () => {
         </div>
       ) : null}
       <div className="grid grid-cols-3 justify-items-center">
-        <a href={"/"}>
-          <button className="m-2 h-min p-10 text-center rounded-lg bg-blue-500">
+        <Link href="/">
+          <button className="m-2 p-5 text-center rounded-lg bg-blue-500">
             <h1 className="text-5xl text-white">กลับ</h1>
           </button>
-        </a>
+        </Link>
         <div className="block mt-2 p-6 max-w-lg bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
           <h5 className="mb-2 text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
             ข้อมูลส่วนตัว

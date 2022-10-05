@@ -10,14 +10,15 @@ const CardNumberPad = () => {
   const [cardNumber, setCardNumber] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (cardNumber.length < 13 || cardNumber.length > 13) {
+    console.log(cardNumber.length);
+    if (cardNumber.length === 13 || cardNumber.length === 9) {
+      router.push(`/selectServicePoint/${cardNumber}`);
+    } else {
       Swal.fire({
         title: "ไม่สำเร็จ!",
         text: "เลขบัตรไม่ถูกต้อง",
         icon: "error",
       });
-    } else {
-      router.push(`/selectServicePoint/${cardNumber}`);
     }
   };
   useEffect(() => {
@@ -62,10 +63,10 @@ const CardNumberPad = () => {
         </div>
       ) : null}
       <div className="text-center">
-        <h1 className="text-4xl">กรุณากรอกเลขบัตร หรือเสียบบัตรประชาชน</h1>
+        <h1 className="text-4xl">กรุณากรอกเลขบัตร/เลข HN หรือเสียบบัตรประชาชน</h1>
       </div>
       <div className="flex justify-center">
-        <h1 className="text-9xl w-min px-20 h-32 rounded-xl bg-blue-200">
+        <h1 className="text-9xl w-min px-20 h-32 shadow-xl rounded-xl bg-blue-200">
           {cardNumber}
         </h1>
       </div>
