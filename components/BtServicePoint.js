@@ -3,56 +3,65 @@ import { useRouter } from "next/router";
 const axios = require("axios").default;
 import Swal from "sweetalert2";
 
-const BtServicePoint = ({ lable, servicePointId, hn }) => {
+const BtServicePoint = ({ lable, servicePointId, hn, isVisit }) => {
   const router = useRouter();
   const [apiUrl, setApiUrl] = useState("");
   const [token, setToken] = useState("");
   const [printerId, setPrinterId] = useState("");
   const handleClick = async () => {
-    const _url = `${apiUrl}/queue/prepare/register`;
-    const body = {
-      hn: hn,
-      servicePointId: servicePointId,
-      priorityId: 2,
-    };
-    const rs = await axios.post(_url, body, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    console.log(rs.data.queueId);
-    if (rs.data.statusCode === 200) {
-      try {
-        var topic = `/printer/${printerId}`;
-        const _url = `${apiUrl}/print/queue/prepare/print`;
-        const res = await axios.post(
-          _url,
-          {
-            queueId: rs.data.queueId,
-            topic: topic,
-            printSmallQueue: "N",
-          },
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
-        if (rs.data) {
-          var data = rs.data;
-          if (data.statusCode === 200) {
-            await Swal.fire({
-              type: "success",
-              text: "สำเร็จกรุณารอรับบัตรค่ะ",
-              timer: 2000,
-            });
-            router.push(`/`);
+    if (isVisit) {
+      const _url = `${apiUrl}/queue/prepare/register`;
+      const body = {
+        hn: hn,
+        servicePointId: servicePointId,
+        priorityId: 2,
+      };
+      const rs = await axios.post(_url, body, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      console.log(rs.data.queueId);
+      if (rs.data.statusCode === 200) {
+        try {
+          var topic = `/printer/${printerId}`;
+          const _url = `${apiUrl}/print/queue/prepare/print`;
+          const res = await axios.post(
+            _url,
+            {
+              queueId: rs.data.queueId,
+              topic: topic,
+              printSmallQueue: "N",
+            },
+            { headers: { Authorization: `Bearer ${token}` } }
+          );
+          if (rs.data) {
+            var data = rs.data;
+            if (data.statusCode === 200) {
+              await Swal.fire({
+                icon: "success",
+                text: "สำเร็จกรุณารอรับบัตรค่ะ",
+                timer: 2000,
+              });
+              router.push(`/`);
+            }
           }
+        } catch (error) {
+          console.log(error);
+          Swal.fire({
+            icon: 'error',
+            text: "พิมพ์บัตรคิวไม่สำเร็จ",
+            timer: 5000,
+          });
         }
-      } catch (error) {
-        console.log(error);
-        Swal.fire({
-          type: "error",
-          text: "พิมพ์บัตรคิวไม่สำเร็จ",
-          timer: 5000,
-        });
       }
+    } else {
+      Swal.fire({
+        icon: 'error',
+        text: "เลขบัตร หรือ HN คุณไม่มีการลงทะเบียน",
+        timer: 5000,
+      });
     }
   };
+
   useEffect(() => {
     setApiUrl(localStorage.getItem("apiUrl"));
     setToken(localStorage.getItem("token"));

@@ -11,7 +11,7 @@ const axios = require("axios").default;
 const SelectServicePoint = () => {
   const [apiUrl, setApiUrl] = useState("");
   const [token, setToken] = useState("");
-  const [status, setStatus] = useState(false);
+  const [status, setStatus] = useState(false);  
   const router = useRouter();
   const [dataCid, setDataCid] = useState({});
   const [listServicePoint, setListServicePoint] = useState([]);
@@ -148,6 +148,7 @@ const SelectServicePoint = () => {
             servicePointId={item.servicePointId}
             hn={dataCid.hn}
             key={i}
+            isVisit={dataCid.isVisit}
           />
         ))}
       </div>
